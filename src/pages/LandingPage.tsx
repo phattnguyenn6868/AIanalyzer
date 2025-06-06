@@ -136,7 +136,7 @@ export const LandingPage: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               {user ? (
                 <Link to="/dashboard">
-                  <Button size="lg" className="text-lg px-10 py-4 bg-red-600 hover:bg-red-700 transform hover:scale-105 transition-all duration-200">
+                  <Button size="lg\" className="text-lg px-10 py-4 bg-red-600 hover:bg-red-700 transform hover:scale-105 transition-all duration-200">
                     Go to Dashboard
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>

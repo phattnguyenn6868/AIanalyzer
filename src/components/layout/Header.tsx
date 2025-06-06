@@ -103,7 +103,7 @@ export const Header: React.FC = () => {
               {user ? (
                 <div className="flex items-center space-x-4">
                   <Link to="/dashboard">
-                    <Button variant="ghost" size="sm" className="text-gray-300 hover:text-white">
+                    <Button variant="ghost\" size="sm\" className="text-gray-300 hover:text-white">
                       Dashboard
                     </Button>
                   </Link>
