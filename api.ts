@@ -8,7 +8,7 @@ import {FunctionDeclaration, GoogleGenAI, File, GenerateContentResponse} from '@
 
 const MODEL_NAME = 'gemini-2.5-flash-preview-04-17';
 
-const client = new GoogleGenAI({apiKey: process.env.API_KEY});
+const client = new GoogleGenAI({apiKey: import.meta.env.VITE_GEMINI_API_KEY});
 
 async function generateContentWithFunctionCall(
   promptText: string,
