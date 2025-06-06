@@ -49,7 +49,7 @@ export const Header: React.FC = () => {
               {user ? (
                 <div className="flex items-center space-x-4">
                   <Link to="/dashboard">
-                    <Button variant="ghost" size="sm">
+                    <Button variant="ghost\" size="sm">
                       Dashboard
                     </Button>
                   </Link>

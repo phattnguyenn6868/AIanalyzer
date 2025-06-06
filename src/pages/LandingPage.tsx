@@ -122,7 +122,7 @@ export const LandingPage: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               {user ? (
                 <Link to="/dashboard">
-                  <Button size="lg" className="text-lg px-8 py-4">
+                  <Button size="lg\" className="text-lg px-8 py-4">
                     Go to Dashboard
                   </Button>
                 </Link>
