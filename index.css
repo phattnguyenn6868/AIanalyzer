@@ -1,0 +1,709 @@
+
+
+
+@charset "UTF-8";
+.light {
+  --background: #F3F3F6;
+  --text: #1A1C1E;
+  --border: #C6C6C9;
+  --highlight: #fff;
+  --track: #E0E0E0; /* Lighter track for light theme */
+  --track-fill: #2872E3; /* Fill color for track */
+  --link: #2872E3;
+  --primary-accent: #007bff;
+  --secondary-accent: #6c757d;
+  --card-background: #FFFFFF;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --error-text: #D32F2F;
+  --success-text: #388E3C;
+  --button-text: #FFFFFF;
+  --placeholder-text-color: #999;
+  --toggle-bg-off: #ccc;
+  --toggle-bg-on: var(--primary-accent);
+  --toggle-knob: #fff;
+}
+
+.dark {
+  --background: #1A1C1E;
+  --text: #E0E0E0; /* Lighter text for dark theme */
+  --border: #37393C;
+  --highlight: #000;
+  --track: #37393C;
+  --track-fill: #87A9FF; /* Fill color for track */
+  --link: #87A9FF;
+  --primary-accent: #87A9FF;
+  --secondary-accent: #6c757d;
+  --card-background: #2C2F33;
+  --shadow: rgba(0, 0, 0, 0.3);
+  --error-text: #EF9A9A;
+  --success-text: #A5D6A7;
+  --button-text: #1A1C1E;
+  --placeholder-text-color: #777;
+  --toggle-bg-off: #555;
+  --toggle-bg-on: var(--primary-accent);
+  --toggle-knob: #1A1C1E;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-variant-ligatures: none;
+}
+
+:root {
+  font-family: "Space Mono", monospace;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--background);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+  margin-bottom: 0.5em;
+  color: var(--text);
+}
+
+h1 { font-size: 2.2em; }
+h2 { font-size: 1.8em; }
+h3 { font-size: 1.5em; text-align: center; margin-bottom: 1em; }
+h4 { font-size: 1.2em; margin-bottom: 0.8em; color: var(--primary-accent);}
+
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+input, textarea {
+  font-family: "Space Mono", monospace;
+  background: var(--card-background);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 14px;
+  outline: none;
+  resize: none;
+  user-select: text;
+}
+input::placeholder, textarea::placeholder {
+  user-select: none;
+  color: var(--secondary-accent);
+}
+
+button {
+  font-family: "Space Mono", monospace;
+  background: var(--primary-accent);
+  color: var(--button-text);
+  border: none;
+  font-size: 1em;
+  cursor: pointer;
+  user-select: none;
+  display: inline-flex; 
+  align-items: center;
+  justify-content: center; 
+  gap: 8px; 
+  padding: 12px 20px; 
+  border-radius: 8px; 
+  transition: background-color 0.2s ease, opacity 0.2s ease; 
+}
+button:hover:not([disabled]) {
+  background: var(--link); 
+}
+button:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+}
+button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: var(--secondary-accent);
+}
+button .icon {
+  display: block;
+  font-size: 1.2em; 
+}
+
+.icon {
+  font-family: "Material Symbols Outlined";
+  font-weight: 300;
+  line-height: 1;
+  font-size: 1.3em; /* Default icon size */
+}
+
+
+/* Main App Layout */
+.fighter-analyzer-app {
+  max-width: 1000px; /* Slightly narrower for better focus */
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px; /* Consistent gap */
+  background: var(--background);
+  color: var(--text);
+}
+
+.fighter-analyzer-app header {
+  text-align: center;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Upload Section */
+.upload-section-container {
+  padding: 20px;
+  background-color: var(--card-background);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow);
+  text-align: center;
+}
+.upload-area {
+  border: 2px dashed var(--border);
+  border-radius: 8px;
+  padding: 30px 20px;
+  text-align: center;
+  background-color: var(--background); 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  min-height: 150px;
+}
+.upload-area:hover {
+  border-color: var(--primary-accent);
+}
+.upload-button {
+  font-size: 1.1em;
+  padding: 12px 25px;
+}
+.upload-button .icon {
+  margin-right: 8px; /* Space between icon and text */
+}
+.upload-area p {
+  color: var(--secondary-accent);
+  font-size: 0.9em;
+}
+
+/* Video Display Section */
+.video-display-section {
+  margin-top: 10px; /* Space above video player */
+  background-color: var(--card-background);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow);
+  overflow: hidden; /* Ensure VideoPlayer's rounded corners are visible */
+}
+
+/* Identified Fighters Display Section */
+.identified-fighters-display {
+  padding: 20px;
+  background-color: var(--card-background);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px var(--shadow);
+  margin-top: 15px; /* Space from video or upload */
+}
+.identified-fighters-display h3 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: var(--primary-accent);
+}
+.fighter-id-card {
+  background-color: var(--background);
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  border: 1px solid var(--border);
+  font-size: 0.95em;
+}
+.fighter-id-card:last-child {
+  margin-bottom: 0;
+}
+
+.fighter-id-card-name { /* New style for h4 */
+  color: var(--text); /* Use default text color for the name part */
+  font-size: 1.1em; /* Slightly larger than description text */
+  margin-bottom: 8px; /* Space below the name/title */
+  font-weight: bold; /* Make the fighter name prominent */
+}
+
+.fighter-id-card em {
+  color: var(--secondary-accent);
+}
+.fighter-id-card .description-item {
+  font-size: 0.9em;
+  margin-left: 0px; /* Remove previous indent, now handled by padding of card */
+  line-height: 1.4;
+  margin-bottom: 4px; /* Add a bit of space between description lines */
+}
+.fighter-id-card .description-item:last-of-type {
+  margin-bottom: 0;
+}
+
+
+/* Fighter Details Input Section (Gear) */
+.fighter-details-input-container {
+  padding: 20px;
+  background-color: var(--card-background);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px var(--shadow);
+  margin-top: 15px; /* Space from identified fighters or video */
+}
+.fighter-details-input-container h3 { /* This h3 is for "Fighter Gear Details" */
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--text); /* Main text color for this heading */
+}
+.gear-inputs-flex-container {
+  display: flex;
+  gap: 25px;
+  justify-content: space-around;
+}
+.fighter-gear-input-section {
+  flex: 1;
+  padding: 15px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--background);
+}
+.fighter-gear-input-section h4 { /* Fighter Name Gear */
+  text-align: center;
+  margin-bottom: 5px; /* Reduced margin */
+}
+.fighter-description-gear-label {
+  font-size: 0.8em;
+  color: var(--secondary-accent);
+  text-align: center;
+  margin-bottom: 10px;
+  font-style: italic;
+}
+.fighter-description-gear-label p {
+    margin-bottom: 2px;
+}
+
+
+.gear-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--border);
+}
+.gear-option:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+.gear-option label {
+  margin-right: 10px;
+  font-size: 0.95em;
+}
+
+/* Toggle Switch Styles */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px; /* Width of the toggle */
+  height: 28px; /* Height of the toggle */
+}
+.toggle-switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.toggle-switch .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--toggle-bg-off);
+  transition: .4s;
+  border-radius: 28px; /* Make it pill-shaped */
+}
+.toggle-switch .slider:before {
+  position: absolute;
+  content: "";
+  height: 20px; /* Size of the knob */
+  width: 20px;  /* Size of the knob */
+  left: 4px;
+  bottom: 4px;
+  background-color: var(--toggle-knob);
+  transition: .4s;
+  border-radius: 50%;
+}
+.toggle-switch input:checked + .slider {
+  background-color: var(--toggle-bg-on);
+}
+.toggle-switch input:focus + .slider {
+  box-shadow: 0 0 1px var(--toggle-bg-on);
+}
+.toggle-switch input:checked + .slider:before {
+  transform: translateX(22px); /* Movement of the knob */
+}
+.toggle-switch input[disabled] + .slider {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+/* Analysis Display Container */
+.analysis-display-container {
+  display: flex;
+  gap: 25px;
+  width: 100%;
+  margin-top: 15px; /* Space from controls or gear input */
+}
+
+.fighter-analysis-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+  background-color: var(--card-background);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px var(--shadow);
+}
+.fighter-analysis-section h3 { /* This is for analysis results: "[Fighter Name] Analysis" */
+  color: var(--primary-accent);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5em;
+  text-align: center; 
+}
+
+.analysis-results {
+  margin-top: 5px; /* Reduced margin from h3 */
+  padding: 10px;
+  background-color: var(--background); 
+  border-radius: 8px;
+}
+.fighter-description-analysis {
+  font-size: 0.85em;
+  color: var(--secondary-accent);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed var(--border);
+}
+.fighter-description-analysis p {
+    margin-bottom: 3px;
+}
+.fighter-description-analysis p:last-child {
+    margin-bottom: 0;
+}
+
+.attribute {
+  margin-bottom: 12px; 
+  font-size: 0.95em;
+  line-height: 1.5; 
+}
+.attribute .numeric {
+    font-weight: bold; 
+    color: var(--primary-accent); /* Highlight numerical scores */
+    margin-left: 5px; /* Space before the numeric part */
+}
+.attribute strong {
+  color: var(--text);
+  margin-right: 5px;
+}
+
+.overall-score-container { /* New container for overall score */
+  font-size: 1.1em;
+  text-align: center;
+  padding: 10px 0;
+  margin-top: 5px;
+  margin-bottom: 15px !important; /* Override general attribute margin */
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.overall-score {
+  font-size: 1.3em; /* Make overall score larger */
+  font-weight: bold;
+  color: var(--success-text); /* Use a distinct color, e.g., success */
+}
+.dark .overall-score {
+  color: var(--success-text); /* Ensure dark theme has a good color */
+}
+
+
+.placeholder-text {
+  color: var(--placeholder-text-color);
+  font-style: italic;
+  text-align: center;
+  padding: 20px 0;
+}
+
+
+.controls-section {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; 
+}
+
+.analyze-button {
+  font-size: 1.1em;
+  padding: 15px 30px;
+}
+
+.winner-section {
+  margin-top: 20px;
+  padding: 25px;
+  background-color: var(--card-background);
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px var(--shadow);
+  border: 1px solid var(--primary-accent);
+}
+.winner-section h2 {
+  color: var(--primary-accent);
+  margin-bottom: 15px;
+}
+.winner-section p {
+  font-size: 1.1em;
+  line-height: 1.7;
+}
+
+.error-message {
+  color: var(--error-text);
+  background-color: color-mix(in srgb, var(--error-text) 15%, transparent);
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  margin: 15px 0; /* Consistent margin */
+  border: 1px solid var(--error-text);
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.1em;
+  padding: 20px;
+  color: var(--text);
+}
+.loading.small-loading { 
+  font-size: 0.95em;
+  padding: 10px;
+  text-align: left;
+  font-style: italic;
+}
+.loading span {
+  display: inline-block;
+  animation: loading-dots steps(4, jump-none) 1s infinite;
+  width: 0;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+@keyframes loading-dots {
+  to {
+    width: 30px; 
+  }
+}
+
+/* Video Player Styles */
+.videoPlayer {
+  width: 100%;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  font-size: 0; 
+  position: relative;
+  user-select: none;
+  border-radius: 8px; 
+  overflow: hidden; 
+}
+.videoPlayer > div:first-child { 
+  display: flex; 
+  flex: 1;
+  min-height: 0; 
+}
+
+video {
+  width: 100%;
+  height: auto; 
+  max-height: 50vh; /* Adjusted max height */
+  display: block; 
+}
+
+.emptyVideo {
+  width:100%;
+  min-height: 200px; 
+  color: var(--secondary-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  background-color: #000; 
+  border-radius: 8px;
+}
+.emptyVideo p {
+  max-width: 80%;
+  text-align: center;
+}
+
+.videoControls {
+  font-size: 12px;
+  position: relative;
+  background: rgba(0,0,0,0.7); 
+  color: #fff;
+  padding: 5px 0; 
+}
+
+.videoScrubber {
+  height: 10px; 
+  padding: 0 10px; 
+}
+.videoScrubber input[type="range"] {
+  -webkit-appearance: none; 
+  appearance: none;
+  width: 100%;
+  height: 8px; 
+  background: transparent; 
+  cursor: pointer;
+  border-radius: 4px;
+  margin: 0; 
+  padding: 0; 
+  background-image: linear-gradient(to right, var(--track-fill) 0%, var(--track-fill) var(--pct, 0%), var(--track) var(--pct, 0%), var(--track) 100%);
+}
+
+.videoScrubber input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px; 
+  height: 16px;
+  background: var(--track-fill); 
+  border-radius: 50%;
+  border: 2px solid var(--background); 
+  margin-top: -4px; 
+}
+
+.videoScrubber input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: var(--track-fill);
+  border-radius: 50%;
+  border: 2px solid var(--background);
+  cursor: pointer;
+}
+.videoScrubber input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    background: var(--track);
+    border-radius: 4px;
+}
+.videoScrubber input[type="range"]::-moz-range-progress {
+    background-color: var(--track-fill);
+    height: 8px;
+    border-radius: 4px;
+}
+
+
+.videoTime {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 15px;
+  font-size: 14px;
+  color: #fff;
+}
+.videoTime button {
+  background: none;
+  color: #fff;
+  padding: 5px; 
+  font-size: 24px; 
+}
+.videoTime button:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .analysis-display-container {
+    flex-direction: column;
+  }
+  .fighter-analyzer-app {
+    padding: 15px;
+    gap: 20px;
+  }
+  h1 { font-size: 1.8em; }
+  .analyze-button {
+    font-size: 1em;
+    padding: 12px 25px;
+  }
+  video {
+    max-height: 40vh;
+  }
+  .upload-area {
+    padding: 20px 15px;
+  }
+  .gear-inputs-flex-container {
+    flex-direction: column;
+  }
+  .fighter-gear-input-section {
+    margin-bottom: 15px; /* Add space between stacked gear sections */
+  }
+  .fighter-gear-input-section:last-child {
+    margin-bottom: 0;
+  }
+  .identified-fighters-display {
+    padding: 15px;
+  }
+  .overall-score-container {
+    font-size: 1em;
+  }
+  .overall-score {
+    font-size: 1.2em;
+  }
+}
+
+@media (max-width: 480px) {
+  .fighter-analysis-section {
+    padding: 15px;
+  }
+  .upload-section-container {
+    padding: 15px;
+  }
+  .fighter-details-input-container {
+    padding: 15px;
+  }
+  h1 { font-size: 1.6em; }
+  .upload-button {
+    font-size: 1em;
+  }
+  .gear-option {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .toggle-switch {
+    align-self: flex-end; /* Keep toggle to the right */
+  }
+  .attribute {
+    font-size: 0.9em; /* Slightly smaller text for attributes on small screens */
+  }
+  .attribute .numeric {
+    display: block; /* Stack numeric scores below text on very small screens */
+    margin-left: 0;
+    margin-top: 2px;
+  }
+}

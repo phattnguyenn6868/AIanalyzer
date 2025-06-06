@@ -1,0 +1,6 @@
+{
+  "name": "AI Fighter Analyzer",
+  "description": "Upload a single sparring video and get an AI-powered analysis of two fighters' power, defense, and accuracy, along with a determined winner for the session.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}
