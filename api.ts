@@ -8,7 +8,13 @@ import {FunctionDeclaration, GoogleGenAI, File, GenerateContentResponse} from '@
 
 const MODEL_NAME = 'gemini-2.5-flash-preview-04-17';
 
-const client = new GoogleGenAI({apiKey: import.meta.env.VITE_GEMINI_API_KEY});
+// Check if API key is available
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+if (!apiKey) {
+  throw new Error('VITE_GEMINI_API_KEY environment variable is not set. Please add it to your .env.local file.');
+}
+
+const client = new GoogleGenAI({apiKey});
 
 async function generateContentWithFunctionCall(
   promptText: string,
